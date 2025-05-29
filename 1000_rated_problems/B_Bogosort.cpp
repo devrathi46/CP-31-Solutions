@@ -56,26 +56,19 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int a,b;
-    cin>>a>>b;
-    int cnt1=0;
-    int cnt2=0;
-    while(a%2==0){
-        a/=2;
-        cnt1++;
+    int n;
+    cin>>n;
+    vector<int>nums(n,0);
+    for(int i=0;i<nums.size();i++){
+        cin>>nums[i];
     }
-    while(b%2==0){
-        b/=2;
-        cnt2++;
+    sort(nums.begin(),nums.end());
+    reverse(nums.begin(),nums.end());
+    for(int i=0;i<nums.size();i++){
+        cout<<nums[i]<<" ";
     }
-    if(a!=b)cout<<-1<<endl;
-    else{
-        if(cnt1==cnt2)cout<<0<<endl;
-        else{
-            int diff=abs(cnt2-cnt1);
-            cout<<diff/3+(diff%3!=0)<<endl;
-        }
-    }
+    cout<<endl;
+    
 }
 
 signed main() {
