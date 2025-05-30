@@ -56,14 +56,30 @@ int combination(int n, int k) {
 }
 
 void solve() {
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    int prev=0;
+    for(int i=1;i<s.length();i++){
+        if((s[prev]-s[i])>0){
+            cout<<"YES"<<endl;
+            cout<<prev+1<<" "<<i+1<<endl;
+            return;
+        }
+        else{
+            prev=i;
+        }
+    }
+    cout<<"NO"<<endl;
     
 }
 
 signed main() {
     ios::sync_with_stdio(false); cin.tie(NULL);
     pre();
-    int tc;
-    cin >> tc;
+    int tc=1;
+   // cin >> tc;
     while (tc--) {
         solve();
     }
