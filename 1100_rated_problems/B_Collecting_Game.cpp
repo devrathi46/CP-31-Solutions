@@ -56,26 +56,43 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n,k;
-    cin>>n>>k;
-    vector<int>a(n,0);
+    int n;
+    cin>>n;
+    int mini=1e9;
+    vector<int>nums(n,0);
     for(int i=0;i<n;i++){
-        cin>>a[i];
+        cin>>nums[i];
+        mini=min(mini,nums[i]);
     }
-    vector<int>b(n,0);
+    //make pair with indexes to track back
+    vector<pair<int,int>>v(n);
+    for(int i=0;i<nums.size();i++){
+        v[i]=(make_pair(nums[i],i));
+    }
+    sort(v.begin(),v.end());
+    vector<int>prefix(n);
+    prefix[0]=v[0].first;
+    for(int i=1;i<n;i++){
+        prefix[i]=prefix[i-1]+v[i].first;
+    }
+    vector<int>ans(n);
     for(int i=0;i<n;i++){
-        cin>>b[i];
+        int j=i;
+        int found=i;
+        while(j<n){
+            pair<int,int>temp={prefix[j]+1,INT_MIN};
+            int index=lower_bound(v.begin(),v.end(),temp)-v.begin();
+            index--;
+            if(index==j)break;
+            found+=index-j;
+            j=index;
+        }
+        ans[v[i].second]=found;
     }
-    int ans=0;
-    int sum=0;
-    int maxi=0;
-    for(int i=0;i<min(n,k);i++){
-        sum+=a[i];
-        maxi=max(maxi,b[i]);
-        ans=max(ans,sum+(k-i-1)*maxi);
+    for(int i=0;i<n;i++){
+        cout<<ans[i]<<" ";
     }
-    cout<<ans<<endl;
-    
+    cout<<endl;
 }
 
 signed main() {

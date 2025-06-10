@@ -54,25 +54,35 @@ int combination(int n, int k) {
     if (k > n || n < 0) return 0;
     return fac[n] * inv[k] % mod * inv[n - k] % mod;
 }
-
+bool check(int mid,vector<int>& nums,int x){
+    int units=0;
+    for(int i=0;i<nums.size();i++){
+        if(mid>nums[i]){
+            units+=(mid-nums[i]);
+        }
+    }
+    return units<=x;
+}
 void solve() {
-    int n,k;
-    cin>>n>>k;
-    vector<int>a(n,0);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    int n,x;
+    cin>>n>>x;
+    vector<int>nums(n,0);
+    for(int i=0;i<nums.size();i++){
+        cin>>nums[i];
     }
-    vector<int>b(n,0);
-    for(int i=0;i<n;i++){
-        cin>>b[i];
-    }
-    int ans=0;
-    int sum=0;
-    int maxi=0;
-    for(int i=0;i<min(n,k);i++){
-        sum+=a[i];
-        maxi=max(maxi,b[i]);
-        ans=max(ans,sum+(k-i-1)*maxi);
+    int s=1;
+    int e=1e12;
+    int mid=s+(e-s)/2;
+    int ans=-1;
+    while(s<=e){
+        if(check(mid,nums,x)){
+            ans=mid;
+            s=mid+1;
+        }
+        else{
+            e=mid-1;
+        }
+        mid=s+(e-s)/2;
     }
     cout<<ans<<endl;
     

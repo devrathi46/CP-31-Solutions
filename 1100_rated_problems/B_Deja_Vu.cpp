@@ -56,25 +56,31 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n,k;
-    cin>>n>>k;
-    vector<int>a(n,0);
+    int n,q;
+    cin>>n>>q;
+    vector<int>nums(n,0);
+    vector<int>x(q,0);
     for(int i=0;i<n;i++){
-        cin>>a[i];
+        cin>>nums[i];
     }
-    vector<int>b(n,0);
-    for(int i=0;i<n;i++){
-        cin>>b[i];
+    for(int i=0;i<q;i++){
+        cin>>x[i];
     }
-    int ans=0;
-    int sum=0;
-    int maxi=0;
-    for(int i=0;i<min(n,k);i++){
-        sum+=a[i];
-        maxi=max(maxi,b[i]);
-        ans=max(ans,sum+(k-i-1)*maxi);
+    int prev=31;
+    for(int i=0;i<q;i++){
+        if(x[i]>=prev)continue;
+        int num=pow(2,x[i]);
+        for(int j=0;j<n;j++){
+            if(nums[j]%num==0){
+                nums[j]+=pow(2,x[i]-1);
+            }
+        }
+        prev=x[i];
     }
-    cout<<ans<<endl;
+    for(int i=0;i<nums.size();i++){
+        cout<<nums[i]<<" ";
+    }
+    cout<<endl;
     
 }
 

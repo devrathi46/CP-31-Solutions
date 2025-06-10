@@ -56,26 +56,21 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n,k;
-    cin>>n>>k;
-    vector<int>a(n,0);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    int n,k,a,b;
+    cin>>n>>k>>a>>b;
+    vector<int>x(n+1);
+    vector<int>y(n+1);
+    for(int i=1;i<=n;i++){
+        cin>>x[i]>>y[i];
     }
-    vector<int>b(n,0);
-    for(int i=0;i<n;i++){
-        cin>>b[i];
+    int ans=abs(x[a]-x[b])+abs(y[a]-y[b]);
+    int mins=1e12;
+    int mint=1e12;
+    for(int i=1;i<=k;i++){
+        mins=min(mins,abs(x[i]-x[a])+abs(y[i]-y[a]));
+        mint=min(mint,abs(x[i]-x[b])+abs(y[i]-y[b]));  
     }
-    int ans=0;
-    int sum=0;
-    int maxi=0;
-    for(int i=0;i<min(n,k);i++){
-        sum+=a[i];
-        maxi=max(maxi,b[i]);
-        ans=max(ans,sum+(k-i-1)*maxi);
-    }
-    cout<<ans<<endl;
-    
+    cout<<min(ans,mins+mint)<<endl;
 }
 
 signed main() {
